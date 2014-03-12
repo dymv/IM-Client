@@ -53,11 +53,13 @@ Client.prototype._highLightNames = function(messageText) {
     var len = this.allNicks.length;
     while(--len >= 0) {
       // not good for perfomance...
-      var regExp = new RegExp('(\\b' + this.allNicks[len] + '\\b)', 'g');
-      messageText = messageText.replace(
-        regExp,
-        '<span class="' + imchat.constants.USER_IN_TEXT_CLASS + '">$1</span>'
-      );
+      if (messageText.indexOf(this.allNicks[len]) !== -1) {
+        var regExp = new RegExp('(\\b' +  imchat.utils.regExpEscape(this.allNicks[len]) + '\\b)', 'g');
+        messageText = messageText.replace(
+          regExp,
+          '<span class="' + imchat.constants.USER_IN_TEXT_CLASS + '">$1</span>'
+        );
+      }
     }
   }
   
@@ -65,8 +67,20 @@ Client.prototype._highLightNames = function(messageText) {
 };
 
 Client.prototype._addSmiles = function(messageText) {
-  // new RegExp('(\\b' + imchat.constants.SMILES[i].symbol + '\\b)', 'g')
-  // replace(reg, '<span class="smiles ' + imchat.constants.SMILES[i].className + '"></span>')
+  if (typeof messageText !== 'string') throw 'message has to be text';
+  
+  var len = imchat.constants.SMILES.length;
+  while(--len >= 0) {
+    if (messageText.indexOf(imchat.constants.SMILES[len].symbol) !== -1) {
+      var regExp = new RegExp(imchat.utils.regExpEscape(imchat.constants.SMILES[len].symbol), 'g');
+      messageText = messageText.replace(
+        regExp,
+        '<span class="' + imchat.constants.SMILES[len].className + '"></span>'
+      );
+    }
+  }
+  
+  return messageText;
 };
 
 Client.prototype._joinMessage = function(message) {

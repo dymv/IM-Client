@@ -21,4 +21,9 @@ Utils.prototype.isMsgEventData = function(data) {
           data.users instanceof Array);
 };
 
+// not mine function (http://izhurnal.blogspot.ru/2010/10/regexpescape-javascript.html)
+Utils.prototype.regExpEscape = function(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+
 namespace('imchat.utils', Utils);

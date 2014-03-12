@@ -158,3 +158,48 @@ test('highlight names', function(){
   
   imchat.client.allNicks = tmpUsers;
 });
+
+test('smiles', function(){
+  throws(
+    function() { imchat.client._addSmiles(); }, "without params"
+  );
+  
+  throws(
+    function() { imchat.client._addSmiles(123); }, "number"
+  );
+  
+  throws(
+    function() { imchat.client._addSmiles({}); }, "object"
+  );
+  
+  strictEqual(imchat.client._addSmiles('   '), '   ', 'spaces string');
+  strictEqual(imchat.client._addSmiles('some message'),
+              'some message', 'some string');
+              
+  
+  var msg = 'some nam ok ';
+  strictEqual(imchat.client._addSmiles(msg), msg, 'string, no smiles');
+  
+  msg = 'some nam ok ' + imchat.constants.SMILES[1].symbol + ' ';
+  var updMsg = 'some nam ok <span class="' +
+               imchat.constants.SMILES[1].className + '"></span> ';
+  strictEqual(imchat.client._addSmiles(msg), updMsg,
+              'string, one smile');
+  
+  msg = 'some nam ok ' + imchat.constants.SMILES[0].symbol + ' ' + 
+        imchat.constants.SMILES[2].symbol;
+  updMsg = 'some nam ok <span class="' + imchat.constants.SMILES[0].className  +
+           '"></span> <span class="' + imchat.constants.SMILES[2].className  +
+           '"></span>';
+  strictEqual(imchat.client._addSmiles(msg), updMsg,
+              'string, two smiles');
+              
+  msg = 'some nam ok ' + imchat.constants.SMILES[1].symbol +
+        imchat.constants.SMILES[2].symbol;
+  updMsg = 'some nam ok <span class="' +
+               imchat.constants.SMILES[1].className + '"></span>' +
+               '<span class="' +
+               imchat.constants.SMILES[2].className + '"></span>';
+  strictEqual(imchat.client._addSmiles(msg), updMsg,
+              'string, one smile');
+});
