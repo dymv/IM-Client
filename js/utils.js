@@ -8,4 +8,17 @@ Utils.prototype.isMsgObj = function(obj) {
           typeof obj.time === 'number' && obj.time > 0);
 };
 
+Utils.prototype.isMsgEvent = function(eventMessage) {
+  return (eventMessage instanceof MessageEvent &&
+          eventMessage.type === 'message' &&
+          eventMessage.origin === window.location.origin &&
+          typeof eventMessage.data === 'Object' && eventMessage.data !== null);
+};
+
+Utils.prototype.isMsgEventData = function(data) {
+  return (typeof data === 'object' && data !== null &&
+          this.isMsgObj(data.message) &&
+          data.users instanceof Array);
+};
+
 namespace('imchat.utils', Utils);

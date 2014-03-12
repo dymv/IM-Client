@@ -15,7 +15,7 @@ FormHelper.prototype.init = function() {
   if (this.send) {
     this.send.addEventListener(('ontouchstart' in document ?
                                 'touchstart' : 'click'),
-                               this._sendMessage.bind(this));
+                               this._sendMessage.bind(this), false);
   }
 };
 

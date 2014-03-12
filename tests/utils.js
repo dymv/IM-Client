@@ -25,3 +25,32 @@ test('is message object', function(){
                 {message: 'some', author: 'some', time: 123}
               ), true, 'correct object');
 });
+
+test('is message event', function(){
+  strictEqual(imchat.utils.isMsgEvent(), false, 'undefined');
+  strictEqual(imchat.utils.isMsgEvent(null), false, 'null');
+  strictEqual(imchat.utils.isMsgEvent(123), false, 'number');
+  strictEqual(imchat.utils.isMsgEvent('asd'), false, 'string');
+  strictEqual(imchat.utils.isMsgEvent([1,2,]), false, 'array');
+  strictEqual(imchat.utils.isMsgEvent((new MessageEvent('some'))), false,
+              'incorrect event');
+  
+  var msgEvent = new MessageEvent('message');
+  strictEqual(imchat.utils.isMsgEvent(msgEvent), false, 'empty');
+  
+  // incorrect create MessageEvent by this way
+  // msgEvent.origin = window.location.origin;
+  // strictEqual(imchat.utils.isMsgEvent(msgEvent), false, 'only origin');
+  // msgEvent.data = '';
+  // strictEqual(imchat.utils.isMsgEvent(msgEvent), false, 'incorrect data');
+  
+  // msgEvent.data = {}
+  // console.log(msgEvent);
+  // strictEqual(imchat.utils.isMsgEvent(msgEvent), true, 'correct');
+  // msgEvent.origin = 'http://something.com';
+  // strictEqual(imchat.utils.isMsgEvent(msgEvent), false, 'incorrect origin');
+});
+
+test('is message event data', function(){
+  // need mock
+});

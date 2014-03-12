@@ -32,7 +32,7 @@ var addForm = function() {
 };
 
 var removeForm = function() {
-  var form = document.forms['clientIM'];
+  var form = document.forms[imchat.constants.FORM_ID];
   if (form) {
     form.remove();
   }
