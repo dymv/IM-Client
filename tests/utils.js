@@ -15,10 +15,13 @@ test('is message object', function(){
                                     false, 'author is incorrect');
   strictEqual(imchat.utils.isMsgObj({message: 'some', author: '', time: 123}),
                                     false, 'author is empty');
-  strictEqual(imchat.utils.isMsgObj({message: 'some', author: 'some', time: 'some'}),
-                                    false, 'time is incorrect');
-  strictEqual(imchat.utils.isMsgObj({message: 'some', author: 'some', time: -123}),
-                                    false, 'time is negative');
-  strictEqual(imchat.utils.isMsgObj({message: 'some', author: 'some', time: 123}),
-                                    true, 'correct object');
+  strictEqual(imchat.utils.isMsgObj(
+                {message: 'some', author: 'some', time: 'some'}
+              ), false, 'time is incorrect');
+  strictEqual(imchat.utils.isMsgObj(
+                {message: 'some', author: 'some', time: -123}
+              ), false, 'time is negative');
+  strictEqual(imchat.utils.isMsgObj(
+                {message: 'some', author: 'some', time: 123}
+              ), true, 'correct object');
 });
