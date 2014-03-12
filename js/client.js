@@ -19,7 +19,7 @@ Client.prototype.send = function(message) {
   if (!imchat.utils.isMsgObj(message)) throw 'incorrect new message';
   
   window.parent.postMessage(message, window.location.origin);
-  //this._addOwnNick(message.author);
+  this._addOwnNick(message.author);
 };
 
 Client.prototype._incomingMessage = function(messageData) {
@@ -32,9 +32,14 @@ Client.prototype._incomingMessage = function(messageData) {
 };
 
 Client.prototype._addMessageToChat = function(message) {
-  // text message -> parse and add to div
-  // this.chatBlock !== null
-  // var parsedMessage = this._parseMessage(message)
+  if (!imchat.utils.isMsgObj(message)) throw 'incorrect message';
+  if (this.chatBlock === null) throw 'block doesn\'t initialized'
+  
+  var parsedMessage = this._parseMessage(message);
+  var pElem = document.createElement('p');
+      pElem.innerHTML = parsedMessage;
+      
+  this.chatBlock.appendChild(pElem);
 };
 
 Client.prototype._parseMessage = function(message) {

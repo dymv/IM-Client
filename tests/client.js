@@ -301,3 +301,39 @@ test('add own nick', function(){
   
   imchat.client.ownNicks = tmpUsers;
 });
+
+test('add message to chat', function(){
+  throws(
+    function() { imchat.client._addMessageToChat(); }, "without params"
+  );
+  
+  throws(
+    function() { imchat.client._addMessageToChat(123); }, "number"
+  );
+  
+  throws(
+    function() {
+      imchat.client._addMessageToChat({some:123, an: 'asd'});
+    }, "incorrect obj"
+  );
+  
+  throws(
+    function() {
+      imchat.client._addMessageToChat({message: 12, author: 'some', time: 123});
+    }, "error in message object"
+  );
+  
+  var tmpUsers = imchat.client.chatBlock;
+  imchat.client.chatBlock = null;
+  throws(
+    function() {
+      imchat.client._addMessageToChat({
+        message: 'some some', author: 'some', time: 123
+      });
+    }, "block is null"
+  );
+  
+  // need mock
+  
+  imchat.client.chatBlock = tmpUsers;
+});
