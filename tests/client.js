@@ -267,3 +267,37 @@ test('author is own', function(){
   
   imchat.client.ownNicks = tmpUsers;
 });
+
+test('add own nick', function(){
+  throws(
+    function() { imchat.client._addOwnNick(); }, "without params"
+  );
+  
+  throws(
+    function() { imchat.client._addOwnNick(123); }, "number"
+  );
+  
+  throws(
+    function() { imchat.client._addOwnNick({}); }, "object"
+  );
+  
+  var tmpUsers = imchat.client.ownNicks;
+  
+  imchat.client.ownNicks = null;
+  imchat.client._addOwnNick('own');
+  deepEqual(imchat.client.ownNicks, ['own'], 'own null');
+  
+  imchat.client.ownNicks = [];
+  imchat.client._addOwnNick('own');
+  deepEqual(imchat.client.ownNicks, ['own'], 'own empty array');
+  
+  imchat.client.ownNicks = ['am'];
+  imchat.client._addOwnNick('own');
+  deepEqual(imchat.client.ownNicks, ['am','own'], 'own have items');
+              
+  imchat.client.ownNicks = ['am','own'];
+  imchat.client._addOwnNick('own');
+  deepEqual(imchat.client.ownNicks, ['am','own'], 'own already have user');
+  
+  imchat.client.ownNicks = tmpUsers;
+});

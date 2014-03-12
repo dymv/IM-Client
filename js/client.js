@@ -33,15 +33,16 @@ Client.prototype._incomingMessage = function(messageData) {
 
 Client.prototype._addMessageToChat = function(message) {
   // text message -> parse and add to div
-  // message = this._parseMessage(message)
+  // this.chatBlock !== null
+  // var parsedMessage = this._parseMessage(message)
 };
 
 Client.prototype._parseMessage = function(message) {
   if (!imchat.utils.isMsgObj(message)) throw 'incorrect message';
   
-  // message.message = this._highLightNames(message.message);
-  // message.message = this._addSmiles(message.message);
-  // message.message = this._joinMessage(message);
+  message.message = this._highLightNames(message.message);
+  message.message = this._addSmiles(message.message);
+  message.message = this._joinMessage(message);
   
   return message.message;
 };
@@ -101,7 +102,12 @@ Client.prototype._isOwnUser = function(userName) {
 };
 
 Client.prototype._addOwnNick = function(nickName) {
-  // add new nick if not in list
+  if (typeof nickName !== 'string') throw 'nickname is incorrect';
+  if (this.ownNicks === null) this.ownNicks = [];
+  
+  if (this.ownNicks.indexOf(nickName) === -1) {
+    this.ownNicks.push(nickName);
+  }
 };
 
 // Client.prototype._updNicks = function(nickNames) {
