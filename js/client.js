@@ -6,7 +6,7 @@ function Client() {
 }
 
 Client.prototype.init = function() {
-  var chat = document.getElementById[imchat.constants.CHAT_ID];
+  var chat = document.getElementById(imchat.constants.CHAT_ID);
   if (!chat) throw 'block not exist';
   
   this.chatBlock = chat;
@@ -20,6 +20,7 @@ Client.prototype.send = function(message) {
   
   window.parent.postMessage(message, window.location.origin);
   this._addOwnNick(message.author);
+  this._addMessageToChat(message);
 };
 
 Client.prototype._incomingMessage = function(messageData) {

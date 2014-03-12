@@ -6,16 +6,22 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <div id="chatBody"></div>
+  
   <form id="clientIM">
     <input name="user_name" type="text" placeholder="Enter your nickname" />
-    <div id="chatBody"></div>
     <input name="new_message" type="text" placeholder="Enter message" />
     <button name="send_message" value="send">Send Message</button>
   </form>
   
   <script src="js/namespace.js"></script>
   <script src="js/constants.js"></script>
+  <script src="js/utils.js"></script>
   <script src="js/formhelper.js"></script>
   <script src="js/client.js"></script>
+  
+  <script>
+    imchat.client.init();
+  </script>
 </body>
 </html>

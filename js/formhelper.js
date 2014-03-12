@@ -55,8 +55,8 @@ FormHelper.prototype._sendMessage = function(event) {
   
   if (this._checkField('name') && this._checkField('message')) {
     imchat.client.send({
-      message: this.getNickname(),
-      author: this.getMessage(),
+      message: this.getMessage(),
+      author: this.getNickname(),
       time: (new Date()).getTime()
     });
   } else {
