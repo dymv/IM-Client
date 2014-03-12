@@ -84,12 +84,20 @@ Client.prototype._addSmiles = function(messageText) {
 };
 
 Client.prototype._joinMessage = function(message) {
-  //if (!imchat.utils.isMsgObj(message)) throw 'incorrect message';
-  // '<span class="' + imchat.constants[this._isOwnUser(message.author) ? 'OWN_USER_CLASS' : 'OTHER_USER_CLASS'] + '">' + message.author + ':</span> ' + message.message;
+  if (!imchat.utils.isMsgObj(message)) throw 'incorrect message';
+  
+  return '<span class="' +
+          imchat.constants[(
+            this._isOwnUser(message.author) ?
+            'OWN_USER_CLASS' :
+            'OTHER_USER_CLASS'
+          )] + '">' + message.author + ':</span> ' + message.message;
 };
 
 Client.prototype._isOwnUser = function(userName) {
+  if (typeof userName !== 'string') throw 'user name is incorrect';
   
+  return (this.ownNicks !== null && this.ownNicks.indexOf(userName) !== -1);
 };
 
 Client.prototype._addOwnNick = function(nickName) {

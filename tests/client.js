@@ -203,3 +203,67 @@ test('smiles', function(){
   strictEqual(imchat.client._addSmiles(msg), updMsg,
               'string, one smile');
 });
+
+test('join message and author', function(){
+  throws(
+    function() { imchat.client._joinMessage(); }, "without params"
+  );
+  
+  throws(
+    function() { imchat.client._joinMessage(123); }, "number"
+  );
+  
+  throws(
+    function() {
+      imchat.client._joinMessage({some:123, an: 'asd'});
+    }, "incorrect obj"
+  );
+  
+  throws(
+    function() {
+      imchat.client._joinMessage({message: 12, author: 'some', time: 123});
+    }, "error in message object"
+  );
+  
+  var tmpUsers = imchat.client.ownNicks;
+  
+  // need stub
+  imchat.client.ownNicks = ['another'];
+  var obj = { message: 'some some', author: 'another', time: 123 },
+      updObj = '<span class="' + imchat.constants.OWN_USER_CLASS +
+               '">another:</span> some some';
+  strictEqual(imchat.client._joinMessage(obj), updObj, 'with own user');
+  
+  imchat.client.ownNicks = null;
+  var obj = { message: 'some some', author: 'another', time: 123 },
+      updObj = '<span class="' + imchat.constants.OTHER_USER_CLASS +
+               '">another:</span> some some';
+  strictEqual(imchat.client._joinMessage(obj), updObj, 'with other user');
+  
+  imchat.client.ownNicks = tmpUsers;
+});
+
+test('author is own', function(){
+  throws(
+    function() { imchat.client._isOwnUser(); }, "without params"
+  );
+  
+  throws(
+    function() { imchat.client._isOwnUser(123); }, "number"
+  );
+  
+  throws(
+    function() { imchat.client._isOwnUser({}); }, "object"
+  );
+  
+  var tmpUsers = imchat.client.ownNicks;
+  
+  imchat.client.ownNicks = null;
+  strictEqual(imchat.client._isOwnUser('some'), false, 'not own, users null');
+  
+  imchat.client.ownNicks = ['another'];
+  strictEqual(imchat.client._isOwnUser('some'), false, 'not own');
+  strictEqual(imchat.client._isOwnUser('another'), true, 'own');
+  
+  imchat.client.ownNicks = tmpUsers;
+});
