@@ -12,7 +12,7 @@ Utils.prototype.isMsgEvent = function(eventMessage) {
   return (eventMessage instanceof MessageEvent &&
           eventMessage.type === 'message' &&
           eventMessage.origin === window.location.origin &&
-          typeof eventMessage.data === 'Object' && eventMessage.data !== null);
+          typeof eventMessage.data === 'object' && eventMessage.data !== null);
 };
 
 Utils.prototype.isMsgEventData = function(data) {
@@ -21,7 +21,7 @@ Utils.prototype.isMsgEventData = function(data) {
           data.users instanceof Array);
 };
 
-// not mine function (http://izhurnal.blogspot.ru/2010/10/regexpescape-javascript.html)
+// link: (http://izhurnal.blogspot.ru/2010/10/regexpescape-javascript.html)
 Utils.prototype.regExpEscape = function(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }

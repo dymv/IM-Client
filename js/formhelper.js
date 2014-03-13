@@ -42,7 +42,8 @@ FormHelper.prototype._checkField = function(fieldName) {
     valid = (this.getMessage() !== '');
   }
   
-  this[fieldName].classList[(valid ? 'remove' : 'add')](imchat.constants.FIELD_ERROR_CLASS);
+  this[fieldName]
+    .classList[(valid ? 'remove' : 'add')](imchat.constants.FIELD_ERROR_CLASS);
   
   return valid;
 };
@@ -59,6 +60,9 @@ FormHelper.prototype._sendMessage = function(event) {
       author: this.getNickname(),
       time: (new Date()).getTime()
     });
+    
+    // need method, just quick insert now
+    this.message.value = '';
   } else {
     return false;
   }

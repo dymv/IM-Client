@@ -6,13 +6,14 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <iframe id="first" src="client.html"></iframe>
-  <iframe id="second" src="client.html"></iframe>
+  <iframe class="chatFrame" src="client.html"></iframe>
+  <iframe class="chatFrame" src="client.html"></iframe>
+  <iframe class="chatFrame" src="client.html"></iframe>
+  <iframe class="chatFrame" src="client.html"></iframe>
   
-  <script src="js/namespace.js"></script>
-  <script src="js/constants.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/history.js"></script>
-  <script src="js/cover.js"></script>
+  <script src="js/base.js"></script>
+  <script>
+    imchat.cover.init();
+  </script>
 </body>
 </html>

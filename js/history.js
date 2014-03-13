@@ -23,4 +23,6 @@ History.prototype.load = function() {
   return messages;
 };
 
+// clear
+
 namespace('imchat.history', History);

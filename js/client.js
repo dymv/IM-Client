@@ -25,11 +25,12 @@ Client.prototype.send = function(message) {
 
 Client.prototype._incomingMessage = function(messageData) {
   if (!imchat.utils.isMsgEvent(messageData)) throw 'incorrect new message';
-  if (!imchat.utils.isMsgEventData(messageData.date)) throw 'incorrect message data';
+  if (!imchat.utils.isMsgEventData(messageData.data))
+      throw 'incorrect message data';
   
   //this._updNicks(messageData.date.users);
-  this.allNicks = messageData.date.users;
-  this._addMessageToChat(messageData.date.message);
+  this.allNicks = messageData.data.users;
+  this._addMessageToChat(messageData.data.message);
 };
 
 Client.prototype._addMessageToChat = function(message) {
@@ -61,7 +62,10 @@ Client.prototype._highLightNames = function(messageText) {
     while(--len >= 0) {
       // not good for perfomance...
       if (messageText.indexOf(this.allNicks[len]) !== -1) {
-        var regExp = new RegExp('(\\b' +  imchat.utils.regExpEscape(this.allNicks[len]) + '\\b)', 'g');
+        var reg = '(\\b' +
+                  imchat.utils.regExpEscape(this.allNicks[len]) +
+                  '\\b)';
+        var regExp = new RegExp(reg, 'g');
         messageText = messageText.replace(
           regExp,
           '<span class="' + imchat.constants.USER_IN_TEXT_CLASS + '">$1</span>'
@@ -79,10 +83,13 @@ Client.prototype._addSmiles = function(messageText) {
   var len = imchat.constants.SMILES.length;
   while(--len >= 0) {
     if (messageText.indexOf(imchat.constants.SMILES[len].symbol) !== -1) {
-      var regExp = new RegExp(imchat.utils.regExpEscape(imchat.constants.SMILES[len].symbol), 'g');
+      var reg = imchat.utils.regExpEscape(imchat.constants.SMILES[len].symbol);
+      var regExp = new RegExp(reg, 'g');
       messageText = messageText.replace(
         regExp,
-        '<span class="' + imchat.constants.SMILES[len].className + '"></span>'
+        '<span class="smiles ' +
+          imchat.constants.SMILES[len].className +
+        '"></span>'
       );
     }
   }

@@ -81,7 +81,7 @@ test('Namespace function', function(){
   someTwo.here = 123;
   someTwo.end = {one: 23, two: 33};
   deepEqual(window['testtest'], {nextLevel: {endDeeper: someTwo}},
-            'chain and instance of class, namespace with obj with params on end');
+          'chain and instance of class, namespace with obj with params on end');
             
   window['testtest'] = undefined;
 });
