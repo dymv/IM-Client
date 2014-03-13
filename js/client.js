@@ -9,6 +9,8 @@ Client.prototype.init = function() {
   var chat = document.getElementById(imchat.constants.CHAT_ID);
   if (!chat) throw 'block not exist';
   
+  imchat.utils.ieFixOrigin();
+  
   this.chatBlock = chat;
   
   imchat.client.form.init();

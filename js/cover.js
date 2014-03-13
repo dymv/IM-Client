@@ -3,8 +3,8 @@ function Cover() {
 }
 
 Cover.prototype.init = function() {
-  // mb  < 2
-  if (window.frames.length === 0) throw 'no frames'; 
+  if (window.frames.length === 0) throw 'no frames';
+  imchat.utils.ieFixOrigin();
   window.addEventListener('message', this._incomingMessage.bind(this), false);
 };
 

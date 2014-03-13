@@ -26,4 +26,13 @@ Utils.prototype.regExpEscape = function(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
+// hotfix for ie
+Utils.prototype.ieFixOrigin = function() {
+    if (!window.location.origin) {
+      window.location.origin = window.location.protocol + "//" +
+          window.location.hostname +
+          (window.location.port ? ':' + window.location.port: '');
+    }
+}
+
 namespace('imchat.utils', Utils);
