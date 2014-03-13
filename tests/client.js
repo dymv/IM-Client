@@ -337,3 +337,7 @@ test('add message to chat', function(){
   
   imchat.client.chatBlock = tmpUsers;
 });
+
+// test('scroll bottom', function(){
+//   // _scrollBottom
+// });

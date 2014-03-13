@@ -42,6 +42,7 @@ Client.prototype._addMessageToChat = function(message) {
       pElem.innerHTML = parsedMessage;
       
   this.chatBlock.appendChild(pElem);
+  this._scrollBottom();
 };
 
 Client.prototype._parseMessage = function(message) {
@@ -120,6 +121,12 @@ Client.prototype._addOwnNick = function(nickName) {
   
   if (this.ownNicks.indexOf(nickName) === -1) {
     this.ownNicks.push(nickName);
+  }
+};
+
+Client.prototype._scrollBottom = function() {
+  if (this.chatBlock) {
+    this.chatBlock.scrollTop = this.chatBlock.scrollHeight - this.chatBlock.offsetHeight;
   }
 };
 
